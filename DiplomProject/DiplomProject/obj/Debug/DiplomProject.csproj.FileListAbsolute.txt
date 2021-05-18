@@ -1,0 +1,13 @@
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\bin\Debug\DiplomProject.exe.config
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\bin\Debug\DiplomProject.exe
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\bin\Debug\DiplomProject.pdb
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.csprojAssemblyReference.cache
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.Form1.resources
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.GroupForm.resources
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.Properties.Resources.resources
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.csproj.GenerateResource.cache
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.csproj.CoreCompileInputs.cache
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.exe
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.pdb
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.TeacherForm.resources
+F:\Диплом\DiplomProject\DiplomProject\DiplomProject\obj\Debug\DiplomProject.SubjectForm.resources

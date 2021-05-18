@@ -16,5 +16,23 @@ namespace DiplomProject
         {
             InitializeComponent();
         }
+
+        private void группаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GroupForm groupForm = new GroupForm();
+            groupForm.Show();
+        }
+
+        private void предметToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SubjectForm subjectForm = new SubjectForm();
+            subjectForm.Show();
+        }
+
+        private void преподавательToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TeacherForm teacherForm = new TeacherForm();
+            teacherForm.Show();
+        }
     }
 }

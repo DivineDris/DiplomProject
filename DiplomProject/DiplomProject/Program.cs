@@ -19,4 +19,24 @@ namespace DiplomProject
             Application.Run(new Form1());
         }
     }
+
+    class Teacher
+    {
+        string first_name, last_name;
+        List<Subject> subjects = new List<Subject>();
+        const int work_hours = 36;
+    }
+    class Group
+    {
+        string faculty, number;
+        List<Subject> subjects = new List<Subject>();
+        const int work_hours = 36;
+    }
+    class Subject
+    {
+        string name;
+        int amount_of_hours;
+        List<Teacher> teachers = new List<Teacher>();
+    }
+
 }
