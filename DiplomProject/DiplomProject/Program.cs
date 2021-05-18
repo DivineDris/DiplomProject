@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DiplomProject
 {
-    static class Program
+    public class Program
     {
         /// <summary>
         /// Главная точка входа для приложения.
@@ -22,8 +22,7 @@ namespace DiplomProject
 
     public class Teacher
     {
-        public string first_name, last_name;
-        public List<Subject> subjects = new List<Subject>();
+        public string first_name, last_name, father_name;
         const int work_hours = 36;
     }
     public class Group

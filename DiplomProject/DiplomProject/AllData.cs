@@ -8,11 +8,13 @@ namespace DiplomProject
 {
     public class AllData
     {
-        public void Main ()
+        List<Teacher> all_teachers = new List<Teacher>();
+
+
+
+        public void AddTeacherToList(Teacher teacher)
         {
-            List<Teacher> all_teachers = new List<Teacher>();
-            List<Subject> all_subjects = new List<Subject>();
-            List<Group> all_groups = new List<Group>();
+            all_teachers.Add(teacher);
         }
     }
 }
