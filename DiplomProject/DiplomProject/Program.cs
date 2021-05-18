@@ -20,23 +20,23 @@ namespace DiplomProject
         }
     }
 
-    class Teacher
+    public class Teacher
     {
-        string first_name, last_name;
-        List<Subject> subjects = new List<Subject>();
+        public string first_name, last_name;
+        public List<Subject> subjects = new List<Subject>();
         const int work_hours = 36;
     }
-    class Group
+    public class Group
     {
-        string faculty, number;
-        List<Subject> subjects = new List<Subject>();
+        public string faculty, number;
+        public List<Subject> subjects = new List<Subject>();
         const int work_hours = 36;
     }
-    class Subject
+    public class Subject
     {
-        string name;
+        public string name;
         int amount_of_hours;
-        List<Teacher> teachers = new List<Teacher>();
+        public List<Teacher> teachers = new List<Teacher>();
     }
 
 }
