@@ -16,5 +16,17 @@ namespace DiplomProject
         {
             InitializeComponent();
         }
+
+        private void преподавательToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TeacherForm teacher_form = new TeacherForm();
+            teacher_form.Show();
+        }
+
+        private void предметToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SubjectForm subject_form = new SubjectForm();
+            subject_form.Show();
+        }
     }
 }
