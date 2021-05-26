@@ -33,6 +33,7 @@
             this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.преподавательToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.предметToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.группаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,8 @@
             // 
             this.создатьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.преподавательToolStripMenuItem,
-            this.предметToolStripMenuItem});
+            this.предметToolStripMenuItem,
+            this.группаToolStripMenuItem});
             this.создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
             this.создатьToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.создатьToolStripMenuItem.Text = "Создать";
@@ -75,6 +77,13 @@
             this.предметToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.предметToolStripMenuItem.Text = "Предмет";
             this.предметToolStripMenuItem.Click += new System.EventHandler(this.предметToolStripMenuItem_Click);
+            // 
+            // группаToolStripMenuItem
+            // 
+            this.группаToolStripMenuItem.Name = "группаToolStripMenuItem";
+            this.группаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.группаToolStripMenuItem.Text = "Группа";
+            this.группаToolStripMenuItem.Click += new System.EventHandler(this.группаToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -99,6 +108,7 @@
         private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem преподавательToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem предметToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem группаToolStripMenuItem;
     }
 }
 

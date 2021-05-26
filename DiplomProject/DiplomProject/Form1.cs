@@ -28,5 +28,11 @@ namespace DiplomProject
             SubjectForm subject_form = new SubjectForm();
             subject_form.Show();
         }
+
+        private void группаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GroupForm group_form = new GroupForm();
+            group_form.Show();
+        }
     }
 }

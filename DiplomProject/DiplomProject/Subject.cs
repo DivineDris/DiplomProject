@@ -10,7 +10,7 @@ namespace DiplomProject
     public class Subject
     {
         string name;
-        Teacher leading_teacher = new Teacher();
+        List<Teacher> leading_teachers = new List<Teacher>();
 
         public string Name
         {
@@ -18,10 +18,10 @@ namespace DiplomProject
             set { name = value; }
         }
 
-        public Teacher LeadingTeacher
+        public List<Teacher> LeadingTeachers
         {
-            get { return leading_teacher; }
-            set { leading_teacher = value; }
+            get { return leading_teachers; }
+            set { leading_teachers = value; }
         }
     }
 }

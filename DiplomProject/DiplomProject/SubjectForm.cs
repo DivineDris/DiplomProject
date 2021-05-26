@@ -43,14 +43,23 @@ namespace DiplomProject
         {
             Subject subject = new Subject();
             subject.Name = textBox1.Text;
-            foreach(Teacher teacher in teachers)
-            {
-                string look_for_a_name = teacher.LastName + " " + teacher.FirstName + " " + teacher.FatherName;
-                if (look_for_a_name == listBox1.SelectedItem.ToString())
-                    subject.LeadingTeacher = teacher;
-            }
+            foreach(string lb2 in listBox2.Items)
+                {
+                    foreach (Teacher teacher in teachers)
+                    {
+                        string str = teacher.LastName + " " + teacher.FirstName + " " + teacher.FatherName;
+                        if (lb2 == str)
+                        {
+                            subject.LeadingTeachers.Add(teacher);
+                            break;
+                        }
+                            
+                    }
+                }
+                
             new_subjects.Add(subject);
             textBox1.Text = null;
+            listBox2.Items.Clear();
         }
         void SaveFile()
         {
@@ -76,6 +85,11 @@ namespace DiplomProject
             {
                 SaveFile();
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            listBox2.Items.Add(listBox1.SelectedItem);
         }
     }
 }
