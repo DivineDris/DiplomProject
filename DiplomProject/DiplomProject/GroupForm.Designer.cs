@@ -139,7 +139,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Name = "GroupForm";
-            this.Text = "GroupForm";
+            this.Text = "Группа";
             this.Load += new System.EventHandler(this.GroupForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
