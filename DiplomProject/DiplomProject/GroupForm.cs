@@ -27,8 +27,11 @@ namespace DiplomProject
             comboBox1.Items.AddRange(dep);
             ReadingFile("DataFiles\\Teachers.bin");
             ReadingFile("DataFiles\\Subjects.bin");
-            foreach (Subject subject in subjects)
-                listBox1.Items.Add(subject.Name);
+            List<string> subjects_names = new List<string>();
+            foreach(Subject subject in subjects)
+                subjects_names.Add(subject.Name);
+            comboBox2.Items.AddRange(subjects_names.ToArray());
+                
 
         }
 
@@ -52,6 +55,38 @@ namespace DiplomProject
                     break;
             }
                 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+                comboBox4.Visible = true;
+            else
+            {
+                comboBox4.Visible = false;
+                comboBox4.Items.Clear();
+            }
+
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox3.Items.Clear();
+            comboBox4.Items.Clear();
+            foreach (Subject subject in subjects)
+            {
+                if(subject.Name == comboBox2.SelectedItem.ToString())
+                {
+                    List<Teacher> find_teachers = subject.LeadingTeachers;
+                    List<string> teachers_names = new List<string>();
+                        foreach (Teacher teacher in find_teachers)
+                            teachers_names.Add(teacher.LastName + " " + teacher.FirstName + " " + teacher.FatherName);
+                    comboBox3.Items.AddRange(teachers_names.ToArray());
+                    comboBox4.Items.AddRange(teachers_names.ToArray());
+                }
+
+            }
         }
     }
 }
