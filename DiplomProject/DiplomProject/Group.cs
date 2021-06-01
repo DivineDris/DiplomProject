@@ -10,9 +10,8 @@ namespace DiplomProject
     public class Group
     {
         string dep, number;
-        int year, hours;
-        List<Subject> subjects = new List<Subject>();
-        List<Teacher> teachers = new List<Teacher>();
+        int year;
+        List<GroupSubject> subjects = new List<GroupSubject>();
 
         public string Dep
         {
@@ -24,27 +23,16 @@ namespace DiplomProject
             get { return year; }
             set { year = value; }
         }
-        public int Hours
-        {
-            get { return hours; }
-            set { hours = value; }
-        }
         public string Number
         {
             get { return number; }
             set { number = value; }
         }
 
-        public List<Subject> Subjects
+        public List<GroupSubject> Subjects
         {
             get { return subjects; }
             set { subjects = value; }
-        }
-
-        public List<Teacher> Teachers
-        {
-            get { return teachers; }
-            set { teachers = value; }
         }
     }
 }

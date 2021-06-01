@@ -97,6 +97,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Создать";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox2
             // 
@@ -183,6 +184,7 @@
             this.button2.TabIndex = 18;
             this.button2.Text = "Добавить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // comboBox4
             // 
@@ -217,6 +219,7 @@
             this.Controls.Add(this.comboBox1);
             this.Name = "GroupForm";
             this.Text = "Группа";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GroupForm_FormClosing);
             this.Load += new System.EventHandler(this.GroupForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

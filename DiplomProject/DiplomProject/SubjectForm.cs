@@ -71,20 +71,24 @@ namespace DiplomProject
 
         private void SubjectForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (File.Exists(FileName))
+            if(new_subjects.Count > 0)
             {
-                List<Subject> saved_subjects = new List<Subject>();
-                Stream openFileStream = File.OpenRead(FileName);
-                BinaryFormatter deserializer = new BinaryFormatter();
-                saved_subjects = (List<Subject>)deserializer.Deserialize(openFileStream);
-                openFileStream.Close();
-                new_subjects.AddRange(saved_subjects);
-                SaveFile();
+                if (File.Exists(FileName))
+                {
+                    List<Subject> saved_subjects = new List<Subject>();
+                    Stream openFileStream = File.OpenRead(FileName);
+                    BinaryFormatter deserializer = new BinaryFormatter();
+                    saved_subjects = (List<Subject>)deserializer.Deserialize(openFileStream);
+                    openFileStream.Close();
+                    new_subjects.AddRange(saved_subjects);
+                    SaveFile();
+                }
+                else
+                {
+                    SaveFile();
+                }
             }
-            else
-            {
-                SaveFile();
-            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)

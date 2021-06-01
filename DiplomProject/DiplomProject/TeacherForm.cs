@@ -43,20 +43,24 @@ namespace DiplomProject
 
         private void TeacherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (File.Exists(FileName))
+            if (new_teachers.Count > 0)
             {
-                List<Teacher> saved_teachers = new List<Teacher>();
-                Stream openFileStream = File.OpenRead(FileName);
-                BinaryFormatter deserializer = new BinaryFormatter();
-                saved_teachers = (List<Teacher>)deserializer.Deserialize(openFileStream);
-                openFileStream.Close();
-                new_teachers.AddRange(saved_teachers);
-                SaveFile();
+                if (File.Exists(FileName))
+                {
+                    List<Teacher> saved_teachers = new List<Teacher>();
+                    Stream openFileStream = File.OpenRead(FileName);
+                    BinaryFormatter deserializer = new BinaryFormatter();
+                    saved_teachers = (List<Teacher>)deserializer.Deserialize(openFileStream);
+                    openFileStream.Close();
+                    new_teachers.AddRange(saved_teachers);
+                    SaveFile();
+                }
+                else
+                {
+                    SaveFile();
+                }
             }
-            else
-            {
-                SaveFile();
-            }
+
         }
     }
 }
