@@ -49,6 +49,7 @@ namespace DiplomProject
         private void Form1_Load(object sender, EventArgs e)
         {
             button2.Enabled = false;
+            textBox1.Text = time_table.NumberOfWeeks.ToString();
             comboBoxes[0] = comboBox3;
             comboBoxes[1] = comboBox4;
             comboBoxes[2] = comboBox5;
@@ -146,11 +147,11 @@ namespace DiplomProject
             string teachers_name = " - ";
             foreach (GroupSubject subject in group.Subjects)
             {
-                foreach(Teacher teacher in subject.LeadingTeachers)
-                    teachers_name = teachers_name + teacher.LastName + " " + teacher.FirstName + " " + teacher.FatherName + " / ";
+                    foreach (Teacher teacher in subject.LeadingTeachers)
+                        teachers_name = teachers_name + teacher.LastName + " " + teacher.FirstName + " " + teacher.FatherName + " / ";
 
-                strs.Add(subject.Name + teachers_name);
-                teachers_name = " - ";
+                    strs.Add(subject.Name + teachers_name);
+                    teachers_name = " - ";
             }
 
             return strs.ToArray();
@@ -172,10 +173,21 @@ namespace DiplomProject
 
             }
 
+        void EditLabel10()
+        {
+            if((time_table.Hours - HoursCounter(days[0]) - HoursCounter(days[1]) - HoursCounter(days[2]) - HoursCounter(days[3]) - HoursCounter(days[4]) - HoursCounter(days[5])) > 0)
+                label10.Text = "Часов осталось: " + (time_table.Hours - HoursCounter(days[0]) - HoursCounter(days[1]) - HoursCounter(days[2]) - HoursCounter(days[3]) - HoursCounter(days[4]) - HoursCounter(days[5]));
+            else
+            {
+                label10.ForeColor = Color.Red;
+                label10.Text = "Часов в неделю больше на: " + (-1 *(time_table.Hours - HoursCounter(days[0]) - HoursCounter(days[1]) - HoursCounter(days[2]) - HoursCounter(days[3]) - HoursCounter(days[4]) - HoursCounter(days[5])));
+            }
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
             WritingDay();
-            label10.Text = "Часов осталось: " + (time_table.Hours - HoursCounter(days[0]) - HoursCounter(days[1]) - HoursCounter(days[2]) - HoursCounter(days[3]) - HoursCounter(days[4]) - HoursCounter(days[5]));
+            EditLabel10();
             listBox1.Items.Clear();
             foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
                 ChangeListBox(subject);
@@ -188,8 +200,7 @@ namespace DiplomProject
         private void button2_Click(object sender, EventArgs e)
         {
             WritingDay();
-            label10.Text = "Часов осталось: " + (time_table.Hours - HoursCounter(days[0]) - HoursCounter(days[1]) - HoursCounter(days[2]) - HoursCounter(days[3]) - HoursCounter(days[4]) - HoursCounter(days[5]));
-            listBox1.Items.Clear();
+            EditLabel10();
             foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
                 ChangeListBox(subject);
             if (day > 0)
@@ -264,7 +275,7 @@ namespace DiplomProject
                 foreach(GroupSubject all_subjects in day.DaySubjects)
                 {
                         if(subject.Name == all_subjects.Name)
-                            hours_per_subject += all_subjects.Hours;
+                            hours_per_subject += all_subjects.Hours * time_table.NumberOfWeeks;
                 }
             }
             return hours_per_subject;
@@ -330,36 +341,19 @@ namespace DiplomProject
 
         }
 
-        void TeacherBusyInThisTime(ComboBox comboBox)
-        {
-            string[] str = comboBox.SelectedItem.ToString().Split('-');
-            string[] teachers_names = str[1].Split('/');
-            foreach (string s in teachers_names)
-            {
-                s.Trim(' ');
-                foreach (Teacher teacher in teachers)
-                {
-                    string[] LLF = s.Split(' ');
-                    if ((LLF[0] == teacher.LastName) && (LLF[1] == teacher.FirstName) && (LLF[2] == teacher.FatherName))
-                    {
-                        int nummber_of_lesson = new int();
-                        foreach (char x in comboBox.Name)
-                            if (Char.IsDigit(x))
-                                nummber_of_lesson = Convert.ToInt32(x);
-                        teacher.WhenBusy[day, nummber_of_lesson] = true;
-                    }
-
-                }
-            }
-        }
-
-
         private void label9_TextChanged(object sender, EventArgs e)
         {
             
         }
 
-
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            foreach (char c in textBox1.Text)
+                if (Char.IsDigit(c))
+                    time_table.NumberOfWeeks = Convert.ToInt32(textBox1.Text);
+                else
+                    textBox1.Text = null;
+        }
 
         string AntiSpace(string str)
         {

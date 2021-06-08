@@ -61,6 +61,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -116,6 +118,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -227,7 +231,6 @@
             this.comboBox10.Name = "comboBox10";
             this.comboBox10.Size = new System.Drawing.Size(511, 21);
             this.comboBox10.TabIndex = 7;
-
             // 
             // comboBox9
             // 
@@ -236,7 +239,6 @@
             this.comboBox9.Name = "comboBox9";
             this.comboBox9.Size = new System.Drawing.Size(511, 21);
             this.comboBox9.TabIndex = 6;
-
             // 
             // comboBox8
             // 
@@ -245,7 +247,6 @@
             this.comboBox8.Name = "comboBox8";
             this.comboBox8.Size = new System.Drawing.Size(511, 21);
             this.comboBox8.TabIndex = 5;
-
             // 
             // comboBox7
             // 
@@ -254,7 +255,6 @@
             this.comboBox7.Name = "comboBox7";
             this.comboBox7.Size = new System.Drawing.Size(511, 21);
             this.comboBox7.TabIndex = 4;
-
             // 
             // comboBox6
             // 
@@ -263,7 +263,6 @@
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(511, 21);
             this.comboBox6.TabIndex = 3;
-
             // 
             // comboBox5
             // 
@@ -272,7 +271,6 @@
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(511, 21);
             this.comboBox5.TabIndex = 2;
-
             // 
             // comboBox4
             // 
@@ -281,7 +279,6 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(511, 21);
             this.comboBox4.TabIndex = 1;
-
             // 
             // comboBox3
             // 
@@ -290,7 +287,6 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(511, 21);
             this.comboBox3.TabIndex = 0;
-
             // 
             // groupBox2
             // 
@@ -380,6 +376,23 @@
             this.label10.TabIndex = 7;
             this.label10.Text = "Часов осталось:";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(575, 19);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(29, 20);
+            this.textBox1.TabIndex = 17;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(610, 22);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(105, 13);
+            this.label11.TabIndex = 18;
+            this.label11.Text = "Количество недель";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,6 +455,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

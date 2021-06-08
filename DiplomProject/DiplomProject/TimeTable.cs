@@ -11,12 +11,19 @@ namespace DiplomProject
     {
         Group current_group;
         int hours = 36;
+        int number_of_weeks = 1;
         Day[] days = new Day[6];
 
         public Group CurrentGroup
         {
             get { return current_group; }
             set { current_group = value; }
+        }
+
+        public int NumberOfWeeks
+        {
+            get { return number_of_weeks; }
+            set { number_of_weeks = value; }
         }
 
         public int Hours
