@@ -10,7 +10,7 @@ namespace DiplomProject
     public class TimeTable
     {
         Group current_group;
-        int hours;
+        int hours = 36;
         Day[] days = new Day[6];
 
         public Group CurrentGroup

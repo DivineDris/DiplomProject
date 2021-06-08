@@ -10,7 +10,7 @@ namespace DiplomProject
     public class Teacher
     {
         string first_name, last_name, father_name;
-
+        bool[,] when_busy = new bool[6,8];
         public string FirstName
         {
             get { return first_name; }
@@ -25,6 +25,12 @@ namespace DiplomProject
         {
             get { return father_name; }
             set { father_name = value; }
+        }
+
+        public bool[,] WhenBusy
+        {
+            get { return when_busy; }
+            set { when_busy = value; }
         }
     }
 }

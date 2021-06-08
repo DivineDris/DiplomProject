@@ -20,9 +20,9 @@ namespace DiplomProject
         TimeTable time_table = new TimeTable();
         Day[] days = new Day[6];
         string[] dep = { "В", "ВТ", "Д", "П", "Т", "Э" };
-        int day = 1;
+        int day = 1, hours = 0;
         ComboBox[] comboBoxes = new ComboBox[8];
-        ComboBox[] teachers_comboBoxes = new ComboBox[8];
+        string[,] selected_items = new string[6, 8];
         public Form1()
         {
             InitializeComponent();
@@ -57,15 +57,11 @@ namespace DiplomProject
             comboBoxes[5] = comboBox8;
             comboBoxes[6] = comboBox9;
             comboBoxes[7] = comboBox10;
-            teachers_comboBoxes[0] = comboBox11;
-            teachers_comboBoxes[1] = comboBox12;
-            teachers_comboBoxes[2] = comboBox13;
-            teachers_comboBoxes[3] = comboBox14;
-            teachers_comboBoxes[4] = comboBox15;
-            teachers_comboBoxes[5] = comboBox16;
-            teachers_comboBoxes[6] = comboBox17;
-            teachers_comboBoxes[7] = comboBox18;
+            foreach (ComboBox box in comboBoxes)
+                box.Text = "Нет пары";
+            label10.Text = "Часов осталось: " + time_table.Hours;
             ReadingFile("DataFiles\\Groups.bin");
+            ReadingFile("DataFiles\\Teachers.bin");
             comboBox1.Items.AddRange(dep);
         }
 
@@ -74,25 +70,34 @@ namespace DiplomProject
             switch (str)
             {
                 case "DataFiles\\Teachers.bin":
-                    string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
-                    Stream openFileStream = File.OpenRead(FileName);
-                    BinaryFormatter deserializer = new BinaryFormatter();
-                    teachers = (List<Teacher>)deserializer.Deserialize(openFileStream);
-                    openFileStream.Close();
+                    if (File.Exists(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str))
+                    {
+                        string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
+                        Stream openFileStream = File.OpenRead(FileName);
+                        BinaryFormatter deserializer = new BinaryFormatter();
+                        teachers = (List<Teacher>)deserializer.Deserialize(openFileStream);
+                        openFileStream.Close();
+                    }
                     break;
                 case "DataFiles\\Subjects.bin":
-                    FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
-                    openFileStream = File.OpenRead(FileName);
-                    deserializer = new BinaryFormatter();
-                    subjects = (List<Subject>)deserializer.Deserialize(openFileStream);
-                    openFileStream.Close();
+                    if (File.Exists(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str))
+                    {
+                        string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
+                        Stream openFileStream = File.OpenRead(FileName);
+                        BinaryFormatter deserializer = new BinaryFormatter();
+                        subjects = (List<Subject>)deserializer.Deserialize(openFileStream);
+                        openFileStream.Close();
+                    }
                     break;
                 case "DataFiles\\Groups.bin":
-                    FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
-                    openFileStream = File.OpenRead(FileName);
-                    deserializer = new BinaryFormatter();
-                    groups = (List<Group>)deserializer.Deserialize(openFileStream);
-                    openFileStream.Close();
+                    if (File.Exists(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str))
+                    {
+                        string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
+                        Stream openFileStream = File.OpenRead(FileName);
+                        BinaryFormatter deserializer = new BinaryFormatter();
+                        groups = (List<Group>)deserializer.Deserialize(openFileStream);
+                        openFileStream.Close();
+                    }
                     break;
             }
         }
@@ -119,11 +124,10 @@ namespace DiplomProject
                 {
                     time_table.CurrentGroup = group;
                     foreach (ComboBox comboBox in comboBoxes)
+                    {
+                        comboBox.Items.Add("Нет пары");
                         comboBox.Items.AddRange(FillSubjects(group));
-                   // foreach (ComboBox comboBox in teachers_comboBoxes)
-                    //{
-
-                    //}
+                    }
                     foreach (GroupSubject subject in group.Subjects)
                     {
                         string str = subject.Name +" "+ subject.Hours + "ч.";
@@ -139,8 +143,16 @@ namespace DiplomProject
         string[] FillSubjects(Group group)
         {
             List<string> strs = new List<string>();
+            string teachers_name = " - ";
             foreach (GroupSubject subject in group.Subjects)
-                strs.Add(subject.Name);
+            {
+                foreach(Teacher teacher in subject.LeadingTeachers)
+                    teachers_name = teachers_name + teacher.LastName + " " + teacher.FirstName + " " + teacher.FatherName + " / ";
+
+                strs.Add(subject.Name + teachers_name);
+                teachers_name = " - ";
+            }
+
             return strs.ToArray();
         }
 
@@ -163,6 +175,10 @@ namespace DiplomProject
         private void button3_Click(object sender, EventArgs e)
         {
             WritingDay();
+            label10.Text = "Часов осталось: " + (time_table.Hours - HoursCounter(days[0]) - HoursCounter(days[1]) - HoursCounter(days[2]) - HoursCounter(days[3]) - HoursCounter(days[4]) - HoursCounter(days[5]));
+            listBox1.Items.Clear();
+            foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
+                ChangeListBox(subject);
             if (day < 6)
                 day++;
             ChangeDay();
@@ -172,6 +188,10 @@ namespace DiplomProject
         private void button2_Click(object sender, EventArgs e)
         {
             WritingDay();
+            label10.Text = "Часов осталось: " + (time_table.Hours - HoursCounter(days[0]) - HoursCounter(days[1]) - HoursCounter(days[2]) - HoursCounter(days[3]) - HoursCounter(days[4]) - HoursCounter(days[5]));
+            listBox1.Items.Clear();
+            foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
+                ChangeListBox(subject);
             if (day > 0)
                 day--;
             ChangeDay();
@@ -186,38 +206,73 @@ namespace DiplomProject
             foreach (ComboBox box in comboBoxes)
             {
 
-                if (box.SelectedItem == null)
-                {
-                    days[day - 1].DaySubjects[counter] = new GroupSubject();
-                    days[day - 1].DaySubjects[counter].Name = "Нет пары";
-                    days[day - 1].DaySubjects[counter].LeadingTeachers = null;
-                    days[day - 1].DaySubjects[counter].Hours = 0;
-                }
-                else
-                {
-                    foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
+                    if ((box.SelectedItem == null) || (box.SelectedItem == "Нет пары"))
                     {
-                        if (box.SelectedItem.ToString() == subject.Name.ToString())
+                        days[day - 1].DaySubjects[counter] = new GroupSubject();
+                        days[day - 1].DaySubjects[counter].Name = "Нет пары";
+                        days[day - 1].DaySubjects[counter].LeadingTeachers = null;
+                        days[day - 1].DaySubjects[counter].Hours = 0;
+                    }
+                    else
+                    {
+                        foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
                         {
-                            days[day - 1].DaySubjects[counter] = new GroupSubject();
-                            days[day - 1].DaySubjects[counter].Name = subject.Name.ToString();
-                            days[day - 1].DaySubjects[counter].LeadingTeachers.AddRange(subject.LeadingTeachers);
-                            days[day - 1].DaySubjects[counter].Hours = 2;
+                            string[] subject_name = box.SelectedItem.ToString().Split('-');
+                            if (AntiSpace(subject_name[0]) == subject.Name.ToString())
+                            {
+                                days[day - 1].DaySubjects[counter] = new GroupSubject();
+                                days[day - 1].DaySubjects[counter].Name = subject.Name.ToString();
+                                days[day - 1].DaySubjects[counter].LeadingTeachers.AddRange(subject.LeadingTeachers);
+                                days[day - 1].DaySubjects[counter].Hours = 2;
+                                break;
+                            }
+
                         }
 
                     }
-
-                }
+                
+               
                 ++counter;
-
+                
             }
             foreach (ComboBox box in comboBoxes)
             {
                 box.SelectedItem = null;
-                box.Text = null;
+                box.Text = "Нет пары";
             }
 
 
+        }
+
+        int HoursCounter(Day day)
+        {
+            int hours_per_day = 0;
+            if (day != null)
+            {
+                foreach (GroupSubject subject in day.DaySubjects)
+                    hours_per_day += subject.Hours;
+            }
+            return hours_per_day;
+
+        }
+
+        int SubjectHoursCounter(GroupSubject subject ,Day day)
+        {
+            int hours_per_subject = 0;
+            if (day != null)
+            {
+                foreach(GroupSubject all_subjects in day.DaySubjects)
+                {
+                        if(subject.Name == all_subjects.Name)
+                            hours_per_subject += all_subjects.Hours;
+                }
+            }
+            return hours_per_subject;
+        }
+        void ChangeListBox(GroupSubject subject)
+        {
+                string str = subject.Name + " " + (subject.Hours - SubjectHoursCounter(subject,days[0]) - SubjectHoursCounter(subject,days[1]) - SubjectHoursCounter(subject,days[2]) - SubjectHoursCounter(subject,days[3]) - SubjectHoursCounter(subject,days[4]) - SubjectHoursCounter(subject,days[4])) + "ч.";
+                listBox1.Items.Add(str);
         }
 
         void ReadingDay()
@@ -225,7 +280,20 @@ namespace DiplomProject
             if(days[day-1] != null)
             {
                 for(int i = 0; i < 8; i++)
-                    comboBoxes[i].Text = days[day-1].DaySubjects[i].Name;
+                {
+
+                    if (days[day - 1].DaySubjects[i].LeadingTeachers != null)
+                    {
+                        string teachers_name = " - ";
+                        foreach (Teacher teacher in days[day - 1].DaySubjects[i].LeadingTeachers)
+                            teachers_name = teachers_name + teacher.LastName + " " + teacher.FirstName + " " + teacher.FatherName + " / ";
+                        comboBoxes[i].Text = days[day - 1].DaySubjects[i].Name + teachers_name;
+                    }
+                    else
+                        comboBoxes[i].Text = days[day - 1].DaySubjects[i].Name;
+
+                }
+                    
             }
         }
 
@@ -262,5 +330,51 @@ namespace DiplomProject
 
         }
 
+        void TeacherBusyInThisTime(ComboBox comboBox)
+        {
+            string[] str = comboBox.SelectedItem.ToString().Split('-');
+            string[] teachers_names = str[1].Split('/');
+            foreach (string s in teachers_names)
+            {
+                s.Trim(' ');
+                foreach (Teacher teacher in teachers)
+                {
+                    string[] LLF = s.Split(' ');
+                    if ((LLF[0] == teacher.LastName) && (LLF[1] == teacher.FirstName) && (LLF[2] == teacher.FatherName))
+                    {
+                        int nummber_of_lesson = new int();
+                        foreach (char x in comboBox.Name)
+                            if (Char.IsDigit(x))
+                                nummber_of_lesson = Convert.ToInt32(x);
+                        teacher.WhenBusy[day, nummber_of_lesson] = true;
+                    }
+
+                }
+            }
+        }
+
+
+        private void label9_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+
+
+        string AntiSpace(string str)
+        {
+            char[] cs = new char[str.Length];
+            string result = string.Empty;
+            int index = 0;
+            foreach (char c in str)
+            {
+                cs[index] = c;
+                index++;
+            }
+            for(int i = 0; i < cs.Length-1; i++)
+                result = result + cs[i];
+            return result;
+
+        }
     }
 }
