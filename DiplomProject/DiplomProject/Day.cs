@@ -11,7 +11,6 @@ namespace DiplomProject
     {
         string name;
         GroupSubject[] day_subjects = new GroupSubject[8];
-        int hours;
 
 
         public string Name
@@ -26,10 +25,5 @@ namespace DiplomProject
             set { day_subjects = value; }
         }
 
-        public int Hours
-        {
-            get { return hours; }
-            set { hours = value; }
-        }
     }
 }

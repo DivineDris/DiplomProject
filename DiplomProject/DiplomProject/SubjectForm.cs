@@ -95,5 +95,10 @@ namespace DiplomProject
         {
             listBox2.Items.Add(listBox1.SelectedItem);
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            listBox2.Items.RemoveAt(listBox2.SelectedIndex);
+        }
     }
 }

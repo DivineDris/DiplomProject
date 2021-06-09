@@ -133,7 +133,7 @@ namespace DiplomProject
                 }
             }
             group_subjects.Add(new_group_subject);
-            listBox1.Items.Add(counter+1 +" "+comboBox2.SelectedItem.ToString()+" "+ textBox2.Text+" "+ teachers);
+            listBox1.Items.Add(counter+1 +" |"+comboBox2.SelectedItem.ToString()+"| "+ textBox2.Text+" ч.| - "+ teachers);
             comboBox3.SelectedItem = null;
             comboBox4.SelectedItem = null;
             textBox2.Text = null;
@@ -146,12 +146,10 @@ namespace DiplomProject
             Group group = new Group();
             group.Dep = comboBox1.SelectedItem.ToString();
             group.Number = textBox1.Text;
-            group.Year = Convert.ToInt32(textBox4.Text);
             group.Subjects.AddRange(group_subjects);
             new_groups.Add(group);
             comboBox1.SelectedItem = null;
             textBox1.Text = null;
-            textBox4.Text = null;
             listBox1.Items.Clear();
             group_subjects.Clear();
         }
@@ -189,10 +187,6 @@ namespace DiplomProject
             ChekIfDigit(textBox1);
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-            ChekIfDigit(textBox4);
-        }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -206,6 +200,21 @@ namespace DiplomProject
                 if (!Char.IsDigit(c))
                     textBox.Text = null;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string[] str = listBox1.SelectedItem.ToString().Split('|');
+            foreach(GroupSubject subject in group_subjects)
+            {
+                if (str[1] == subject.Name)
+                {
+                    group_subjects.Remove(subject);
+                    break;
+                }
+
+            }
+            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
         }
     }
 }
