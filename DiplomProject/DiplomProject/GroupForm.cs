@@ -183,5 +183,29 @@ namespace DiplomProject
             serializer.Serialize(SaveFileStream, new_groups);
             SaveFileStream.Close();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            ChekIfDigit(textBox1);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            ChekIfDigit(textBox4);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            ChekIfDigit(textBox2);
+        }
+
+        void ChekIfDigit(TextBox textBox)
+        {
+            foreach (char c in textBox.Text)
+            {
+                if (!Char.IsDigit(c))
+                    textBox.Text = null;
+            }
+        }
     }
 }
