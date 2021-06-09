@@ -14,8 +14,6 @@ namespace DiplomProject
 {
     public partial class Form1 : Form
     {
-        List<Teacher> teachers = new List<Teacher>();
-        List<Subject> subjects = new List<Subject>();
         List<Group> groups = new List<Group>();
         TimeTable time_table = new TimeTable();
         Day[] days = new Day[6];
@@ -62,44 +60,19 @@ namespace DiplomProject
                 box.Text = "Нет пары";
             label10.Text = "Часов осталось: " + time_table.Hours;
             ReadingFile("DataFiles\\Groups.bin");
-            ReadingFile("DataFiles\\Teachers.bin");
             comboBox1.Items.AddRange(dep);
         }
 
         void ReadingFile(string str)
         {
-            switch (str)
+
+            if (File.Exists(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str))
             {
-                case "DataFiles\\Teachers.bin":
-                    if (File.Exists(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str))
-                    {
-                        string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
-                        Stream openFileStream = File.OpenRead(FileName);
-                        BinaryFormatter deserializer = new BinaryFormatter();
-                        teachers = (List<Teacher>)deserializer.Deserialize(openFileStream);
-                        openFileStream.Close();
-                    }
-                    break;
-                case "DataFiles\\Subjects.bin":
-                    if (File.Exists(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str))
-                    {
-                        string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
-                        Stream openFileStream = File.OpenRead(FileName);
-                        BinaryFormatter deserializer = new BinaryFormatter();
-                        subjects = (List<Subject>)deserializer.Deserialize(openFileStream);
-                        openFileStream.Close();
-                    }
-                    break;
-                case "DataFiles\\Groups.bin":
-                    if (File.Exists(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str))
-                    {
-                        string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
-                        Stream openFileStream = File.OpenRead(FileName);
-                        BinaryFormatter deserializer = new BinaryFormatter();
-                        groups = (List<Group>)deserializer.Deserialize(openFileStream);
-                        openFileStream.Close();
-                    }
-                    break;
+                string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + str;
+                Stream openFileStream = File.OpenRead(FileName);
+                BinaryFormatter deserializer = new BinaryFormatter();
+                groups = (List<Group>)deserializer.Deserialize(openFileStream);
+                openFileStream.Close();
             }
         }
 
