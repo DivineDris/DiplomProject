@@ -22,8 +22,6 @@ namespace DiplomProject
         string[] dep = { "В", "ВТ", "Д", "П", "Т", "Э" };
         int day = 1;
         ComboBox[] comboBoxes = new ComboBox[8];
-        Label[] labels = new Label[8];
-        string[,] selected_items = new string[6, 8];
         public Form1()
         {
             InitializeComponent();
@@ -60,14 +58,6 @@ namespace DiplomProject
             comboBoxes[5] = comboBox8;
             comboBoxes[6] = comboBox9;
             comboBoxes[7] = comboBox10;
-            labels[0] = label12;
-            labels[1] = label13;
-            labels[2] = label14;
-            labels[3] = label15;
-            labels[4] = label16;
-            labels[5] = label17;
-            labels[6] = label18;
-            labels[7] = label19;
             foreach (ComboBox box in comboBoxes)
                 box.Text = "Нет пары";
             label10.Text = "Часов осталось: " + time_table.Hours;
@@ -239,6 +229,9 @@ namespace DiplomProject
         void WritingDay()
         {
             int counter = 0;
+                days[day - 1] = new Day();
+                days[day - 1].Name = DayNumber(day);
+
                 foreach (ComboBox box in comboBoxes)
                 {
 
@@ -260,12 +253,6 @@ namespace DiplomProject
                                 days[day - 1].DaySubjects[counter].Name = subject.Name.ToString();
                                 days[day - 1].DaySubjects[counter].LeadingTeachers.AddRange(subject.LeadingTeachers);
                                 days[day - 1].DaySubjects[counter].Hours = 2;
-                                foreach (Teacher teacher in days[day - 1].DaySubjects[counter].LeadingTeachers)
-                                {
-                                    if (teacher.WhenBusy[day - 1, counter])
-                                        IfTeacherBusy(counter);
-                                }
-
                                  break;
                             }
 
@@ -280,29 +267,6 @@ namespace DiplomProject
             
 
 
-        }
-
-        void IfTeacherBusy(int i)
-        {
-            labels[i].Visible = true;
-        }
-
-        void TeacherBuzy()
-        {
-            foreach(Teacher teacher in teachers)
-            {
-                for(int i = 0; i < 6; i++)
-                {
-                    for(int j = 0; j < 8; i++)
-                    {
-                        foreach(Teacher chek in days[i].DaySubjects[j].LeadingTeachers)
-                        {
-                            if (teacher == chek)
-                                teacher.WhenBusy[i,j] = true;
-                        }
-                    }
-                }
-            }
         }
 
 
@@ -457,7 +421,6 @@ namespace DiplomProject
         private void button4_Click(object sender, EventArgs e)
         {
             time_table.Days = days;
-            TeacherBuzy();
             SaveTimeTable();
         }
 
