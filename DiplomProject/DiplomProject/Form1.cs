@@ -161,10 +161,7 @@ namespace DiplomProject
 
         private void button3_Click(object sender, EventArgs e)
         {
-            EditLabel10();
-            listBox1.Items.Clear();
-            foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
-                ChangeListBox(subject);
+
             if (day < 6)
                 day++;
             ChangeDay();
@@ -181,10 +178,7 @@ namespace DiplomProject
 
         private void button2_Click(object sender, EventArgs e)
         {
-            EditLabel10();
-            listBox1.Items.Clear();
-            foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
-                ChangeListBox(subject);
+
             if (day > 0)
                 day--;
             ChangeDay();
@@ -270,7 +264,7 @@ namespace DiplomProject
         }
         void ChangeListBox(GroupSubject subject)
         {
-                if((subject.Hours - SubjectHoursCounter(subject, days[0]) - SubjectHoursCounter(subject, days[1]) - SubjectHoursCounter(subject, days[2]) - SubjectHoursCounter(subject, days[3]) - SubjectHoursCounter(subject, days[4]) - SubjectHoursCounter(subject, days[4])) > 0)
+                if((subject.Hours - SubjectHoursCounter(subject, days[0]) - SubjectHoursCounter(subject, days[1]) - SubjectHoursCounter(subject, days[2]) - SubjectHoursCounter(subject, days[3]) - SubjectHoursCounter(subject, days[4]) - SubjectHoursCounter(subject, days[4])) >= 0)
             {
                 string str = subject.Name + " " + (subject.Hours - SubjectHoursCounter(subject, days[0]) - SubjectHoursCounter(subject, days[1]) - SubjectHoursCounter(subject, days[2]) - SubjectHoursCounter(subject, days[3]) - SubjectHoursCounter(subject, days[4]) - SubjectHoursCounter(subject, days[4])) + " ч.";
                 listBox1.Items.Add(str);
@@ -355,6 +349,10 @@ namespace DiplomProject
         private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
         {
             WritingDay();
+            EditLabel10();
+            listBox1.Items.Clear();
+            foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
+                ChangeListBox(subject);
         }
 
 
@@ -411,20 +409,19 @@ namespace DiplomProject
                 BinaryFormatter deserializer = new BinaryFormatter();
                 time_table = (TimeTable)deserializer.Deserialize(openFileStream);
                 openFileStream.Close();
+                days = time_table.Days;
+                textBox1.Text = time_table.NumberOfWeeks.ToString();
+                comboBox1.Text = time_table.CurrentGroup.Dep;
+                comboBox1.SelectedItem = time_table.CurrentGroup.Dep;
+                comboBox2.Text = time_table.CurrentGroup.Number;
+                comboBox2.SelectedItem = time_table.CurrentGroup.Number;
+                ReadingDay();
+                button1_Click(sender, e);
+                listBox1.Items.Clear();
+                foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
+                    ChangeListBox(subject);
+                EditLabel10();
             }
-
-            days = time_table.Days;
-            textBox1.Text = time_table.NumberOfWeeks.ToString();
-            comboBox1.Text = time_table.CurrentGroup.Dep;
-            comboBox1.SelectedItem = time_table.CurrentGroup.Dep;
-            comboBox2.Text = time_table.CurrentGroup.Number;
-            comboBox2.SelectedItem = time_table.CurrentGroup.Number;
-            ReadingDay();
-            button1_Click(sender, e);
-            listBox1.Items.Clear();
-            foreach (GroupSubject subject in time_table.CurrentGroup.Subjects)
-                ChangeListBox(subject);
-            EditLabel10();
 
         }
 
