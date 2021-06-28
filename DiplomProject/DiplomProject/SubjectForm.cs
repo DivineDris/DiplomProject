@@ -23,6 +23,14 @@ namespace DiplomProject
             InitializeComponent();
         }
 
+        void SaveFile()
+        {
+            Stream SaveFileStream = File.Create(FileName);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(SaveFileStream, new_subjects);
+            SaveFileStream.Close();
+        }
+
         void ReadingTeachersFile()
         {
             string FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\")) + "DataFiles\\Teachers.bin";
@@ -31,6 +39,8 @@ namespace DiplomProject
             teachers = (List<Teacher>)deserializer.Deserialize(openFileStream);
             openFileStream.Close();
         }
+
+
 
         private void SubjectForm_Load(object sender, EventArgs e)
         {
@@ -61,13 +71,7 @@ namespace DiplomProject
             textBox1.Text = null;
             listBox2.Items.Clear();
         }
-        void SaveFile()
-        {
-            Stream SaveFileStream = File.Create(FileName);
-            BinaryFormatter serializer = new BinaryFormatter();
-            serializer.Serialize(SaveFileStream, new_subjects);
-            SaveFileStream.Close();
-        }
+
 
         private void SubjectForm_FormClosing(object sender, FormClosingEventArgs e)
         {
